@@ -2,7 +2,6 @@ package com.example.a14270729b.magicconfragment;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 public class MainActivityFragment extends Fragment implements View.OnClickListener {
 
     private TextView cont1, cont2;
-    private int jug1Vidas, jug2Vidas, jug1Veneno, jug2Veneno;
     private Jugador jugador1, jugador2;
 
 
@@ -43,8 +41,9 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                 vista.findViewById(R.id.btn10Veneno),vista.findViewById(R.id.btn5Subir),
                 vista.findViewById(R.id.btn6Bajar)};
 
-        for(int i=0; i<botones.length;i++)
-            botones[i].setOnClickListener(this);
+        for(View i: botones)
+            i.setOnClickListener(this);
+
 
         cont1 = (TextView) vista.findViewById(R.id.contador1);
         cont2 = (TextView) vista.findViewById(R.id.contador2);
@@ -139,12 +138,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                 Integer.parseInt(text1.substring(text1.lastIndexOf("/")+1)));
         jugador2 = new Jugador(Integer.parseInt(text2.substring(0,text2.indexOf("/"))),
                 Integer.parseInt(text2.substring(text2.lastIndexOf("/")+1)));
-
-      /*  jug1Vidas = Integer.parseInt(text1.substring(0,text1.indexOf("/")));
-        jug1Veneno = Integer.parseInt(text1.substring(text1.lastIndexOf("/")+1));
-
-        jug2Vidas = Integer.parseInt(text2.substring(0,text2.indexOf("/")));
-        jug2Veneno = Integer.parseInt(text2.substring(text2.lastIndexOf("/")+1));*/
     }
 
 }
