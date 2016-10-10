@@ -1,5 +1,6 @@
 package com.example.a14270729b.magicconfragment;
 
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -17,6 +19,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     private TextView cont1, cont2;
     private Jugador jugador1, jugador2;
+    private View vista;
 
 
     public MainActivityFragment() {
@@ -32,7 +35,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_main, container, false);
+        vista = inflater.inflate(R.layout.fragment_main, container, false);
 
         View [] botones = new View []{vista.findViewById(R.id.btn1Veneno),
                 vista.findViewById(R.id.btn7Vida),vista.findViewById(R.id.btn3Veneno),
@@ -48,19 +51,22 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         cont1 = (TextView) vista.findViewById(R.id.contador1);
         cont2 = (TextView) vista.findViewById(R.id.contador2);
 
+        jugador1 = new Jugador();
+        jugador2 = new Jugador();
+
         initzialitzarVariables();
 
-        //Toast.makeText(this.getContext(), " "+text1.substring(text1.lastIndexOf("/")+1)+" ", Toast.LENGTH_SHORT).show();
         return vista;
     }
 
-
-    //Indiquem quin es el xml corresponent al dibuix del menu
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_main_fragment, menu);
     }
+
+    //Indiquem quin es el xml corresponent al dibuix del menu
+
 
     //Indiquem que executi el métode void refresh() si es clica l'item del menu refresh.
     @Override
@@ -70,11 +76,18 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+
+        if (id == R.id.menuReset) {
+                reset();
+            return true;
+        }
         //noinspection SimplifiableIfStatement
 
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -123,6 +136,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                 cont2.setText(String.valueOf(jugador2.getVida())+"/"+String.valueOf(jugador2.getVeneno()));
                 break;
             default:
+                Snackbar.make(vista, R.string.Snackbar_Unkown_Error,Snackbar.LENGTH_LONG).show();
                 break;
         }
 
@@ -130,14 +144,34 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     public void initzialitzarVariables(){
 
+        jugador1.inicializarValores();
+        jugador2.inicializarValores();
+        cont1.setText(String.valueOf(jugador1.getVida())+"/"+String.valueOf(jugador1.getVeneno()));
+        cont2.setText(String.valueOf(jugador2.getVida())+"/"+String.valueOf(jugador2.getVeneno()));
 
-        String text1 = cont1.getText().toString();
-        String text2 = cont2.getText().toString();
+    }
 
-        jugador1 = new Jugador(Integer.parseInt(text1.substring(0,text1.indexOf("/"))),
-                Integer.parseInt(text1.substring(text1.lastIndexOf("/")+1)));
-        jugador2 = new Jugador(Integer.parseInt(text2.substring(0,text2.indexOf("/"))),
-                Integer.parseInt(text2.substring(text2.lastIndexOf("/")+1)));
+    private void reset() {
+        jugador1.llenarBuffer();
+        jugador2.llenarBuffer();
+
+
+        View.OnClickListener clickListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                jugador1.setVida(jugador1.getVidaBuffer());
+                jugador1.setVeneno(jugador1.getVenenoBuffer());
+
+                jugador2.setVida(jugador2.getVidaBuffer());
+                jugador2.setVeneno(jugador2.getVenenoBuffer());
+
+                cont1.setText(String.valueOf(jugador1.getVida())+"/"+String.valueOf(jugador1.getVeneno()));
+                cont2.setText(String.valueOf(jugador2.getVida())+"/"+String.valueOf(jugador2.getVeneno()));
+            }
+        };
+        Snackbar.make(vista , R.string.Snackbar_reset_msj,Snackbar.LENGTH_LONG).
+                setAction(R.string.Snackbar_Undo, clickListener).show();
+
+        initzialitzarVariables();
     }
 
 }

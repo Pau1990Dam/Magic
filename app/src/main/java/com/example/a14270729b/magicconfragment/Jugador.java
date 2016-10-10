@@ -8,6 +8,7 @@ public class Jugador {
 
     int vida;
     int veneno;
+    private Jugador jugadorBuffer;
 
     public Jugador(){
     }
@@ -48,4 +49,23 @@ public class Jugador {
         veneno = 0;
     }
 
+    public void llenarBuffer(){
+        jugadorBuffer = new Jugador(this.getVida(), this.getVeneno());
+    }
+
+    public int getVidaBuffer(){
+        return jugadorBuffer.getVida();
+    }
+
+    public int getVenenoBuffer(){
+        return jugadorBuffer.getVeneno();
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
+    }
+
+    public void setVeneno(int veneno) {
+        this.veneno = veneno;
+    }
 }

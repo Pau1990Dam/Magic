@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">MagicConFragment</string>
     <string name="action_settings">Settings</string>
+    <string name="menuReset">Reset</string>
+    <string name="Snackbar_reset_msj">"Se reiniciarán los valores de la partida"</string>
+    <string name="Snackbar_Undo">"UNDO"</string>
+    <string name="Snackbar_Unkown_Error">"ERROR DE ORIGEN DESCONOCIDO"</string>
 </resources>
