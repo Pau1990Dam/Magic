@@ -6,8 +6,8 @@ package com.example.a14270729b.magicconfragment;
 
 public class Jugador {
 
-    int vida;
-    int veneno;
+    private int vida;
+    private int veneno;
     private Jugador jugadorBuffer;
 
     public Jugador(){

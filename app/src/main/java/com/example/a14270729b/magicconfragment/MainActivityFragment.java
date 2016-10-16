@@ -170,6 +170,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         };
         Snackbar.make(vista , R.string.Snackbar_reset_msj,Snackbar.LENGTH_LONG).
                 setAction(R.string.Snackbar_Undo, clickListener).show();
+        //snackBarView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.BLACK));
 
         initzialitzarVariables();
     }
